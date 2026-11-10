@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static shop_extras %}
+
+{% block title %}{{ product.name }} | PackHive{% endblock %}
+
+{% block content %}
+<div class="container-site py-10">
+  <p class="text-sm text-[var(--muted)] mb-6">
+    <a href="{% url 'home' %}" class="hover:text-[var(--terra)]">Home</a> /
+    <a href="{% url 'shop' %}" class="hover:text-[var(--terra)]">Shop</a> /
+    {{ product.name }}
+  </p>
+
+  <div class="grid gap-8 lg:grid-cols-2">
+    <div class="relative aspect-square rounded-[1.5rem] overflow-hidden bg-white border border-[var(--line)]">
+      <img src="{{ product.image_url }}" alt="{{ product.name }}" class="absolute inset-0 h-full w-full object-cover" />
+    </div>
+
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold leading-tight">{{ product.name }}</h1>
+      <p class="mt-4 text-2xl font-bold text-[var(--terra)]">{{ product.price_display }}</p>
+      <p class="mt-5 text-[var(--muted)] leading-relaxed">{{ product.description }}</p>
+
+      <ul class="mt-6 space-y-2 text-sm">
+        <li>✓ Food-grade quality materials</li>
+        <li>✓ Bulk discounts available</li>
+        <li>✓ Custom printing on request</li>
+        <li>✓ Delivery across Pakistan</li>
+      </ul>
+
+      <form method="post" action="{% url 'cart_add' product.slug %}" class="mt-8 flex flex-wrap items-end gap-3">
+        {% csrf_token %}
+        <label class="block">
+          <span class="text-sm font-medium">Quantity</span>
+          <input type="number" name="quantity" min="1" value="1" class="mt-1.5 w-28 rounded-xl border border-[var(--line)] bg-[var(--cream-soft)] px-4 py-3 outline-none focus:border-[var(--terra)]" />
+        </label>
+        <button type="submit" class="btn-primary">Add to Cart</button>
+        <a href="{{ product|whatsapp_order_url:site.whatsapp_href }}" target="_blank" rel="noopener noreferrer" class="btn-outline">Order on WhatsApp</a>
+      </form>
+    </div>
+  </div>
+
+  {% if related %}
+    <section class="mt-16">
+      <h2 class="text-2xl font-bold mb-6">Related products</h2>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {% for item in related %}
+          <a href="{% url 'product_detail' item.slug %}" class="product-card">
+            <div class="relative aspect-square bg-[var(--cream)]">
+              <img src="{{ item.image_url }}" alt="{{ item.name }}" class="absolute inset-0 h-full w-full object-cover" />
+            </div>
+            <div class="p-3">
+              <h3 class="text-sm font-semibold line-clamp-2">{{ item.name }}</h3>
+              <p class="mt-1 text-[var(--terra)] font-bold text-sm">{{ item.price_from|format_price }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</div>
+{% endblock %}

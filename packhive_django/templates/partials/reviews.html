@@ -1,0 +1,15 @@
+<section class="container-site py-10 md:py-14">
+  <h2 class="section-title">What Our Customers Say</h2>
+  <p class="mt-3 text-center text-[var(--muted)] max-w-xl mx-auto">
+    Real feedback from restaurants, bakeries and brands across Pakistan.
+  </p>
+  <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {% for r in reviews %}
+      <article class="rounded-[1.35rem] bg-white/90 border border-[var(--line)] p-6 shadow-[0_10px_30px_rgba(106,168,232,0.08)]">
+        <div class="flex gap-1 text-sm" style="color: {% cycle '#6aa8e8' '#4aa3a0' '#e0b35c' '#e8899a' '#6bc4a6' '#a78bdb' %}" aria-hidden>★★★★★</div>
+        <p class="mt-4 text-[var(--ink)] leading-relaxed text-[15px]">“{{ r.text }}”</p>
+        <p class="mt-5 font-semibold text-[var(--brand-deep)]">{{ r.name }}</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>

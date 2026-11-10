@@ -1,0 +1,82 @@
+{% load static %}
+<header class="sticky top-0 z-50">
+  <div class="bg-[var(--cream)] border-b border-[var(--line)]">
+    <div class="container-site flex items-center justify-between py-3 gap-4">
+      <a href="{% url 'home' %}" class="flex items-center gap-2.5 group">
+        <span class="relative inline-flex h-11 w-11 items-center justify-center overflow-hidden">
+          <img src="{% static 'logo-source.png' %}" alt="PackHive" class="h-10 w-10 object-contain transition-transform group-hover:scale-105" />
+        </span>
+        <span class="hidden sm:block">
+          <span class="block font-[family-name:var(--font-display)] text-xl font-bold text-[var(--ink)] leading-none">PackHive</span>
+          <span class="block text-[10px] tracking-[0.16em] uppercase text-[var(--muted)] mt-1">Packaging Pakistan</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-6 text-[15px] font-medium text-[var(--ink)]">
+        <a href="{% url 'home' %}" class="hover:text-[var(--terra)] transition-colors">Home</a>
+        <a href="{% url 'shop' %}" class="hover:text-[var(--terra)] transition-colors">Products</a>
+        <a href="{% url 'shop' %}?cat=kraft-pouches" class="hover:text-[var(--terra)] transition-colors">Kraft Pouches</a>
+        <a href="{% url 'shop' %}?cat=bakery" class="hover:text-[var(--terra)] transition-colors">Bakery</a>
+        <a href="{% url 'cart' %}" class="hover:text-[var(--terra)] transition-colors">Cart{% if cart_count %} ({{ cart_count }}){% endif %}</a>
+        <a href="{% url 'quote' %}" class="hover:text-[var(--terra)] transition-colors">Get Quote</a>
+        <a href="{% url 'about' %}" class="hover:text-[var(--terra)] transition-colors">About</a>
+        <a href="{% url 'contact' %}" class="hover:text-[var(--terra)] transition-colors">Contact</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <a href="{% url 'cart' %}" class="relative inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--terra)]" aria-label="Cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 12H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          {% if cart_count %}<span class="absolute -top-0.5 -right-0.5 h-4 min-w-4 px-1 rounded-full bg-[var(--ink)] text-white text-[10px] flex items-center justify-center">{{ cart_count }}</span>{% endif %}
+        </a>
+        <a href="{{ site.phone_href }}" class="inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--terra)]" aria-label="Call us">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+        </a>
+        <a href="{{ site.whatsapp_href }}" target="_blank" rel="noopener noreferrer" class="inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--whatsapp)]" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.3 2 11.7c0 2 .6 3.9 1.6 5.5L2 22l5-1.3c1.5.8 3.2 1.3 5 1.3 5.5 0 10-4.3 10-9.7S17.5 2 12 2zm0 17.6c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3C4.2 14.7 3.8 13.2 3.8 11.7 3.8 7.4 7.5 4 12 4s8.2 3.4 8.2 7.7-3.7 7.9-8.2 7.9zm4.5-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.2.2-.3.2-.5 0-.2 0-.4-.1-.5-.1-.1-.5-1.2-.7-1.6-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.1.7 2.9.6.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.5-.3z"/></svg>
+        </a>
+        <button type="button" id="menu-toggle" class="lg:hidden inline-flex h-10 w-10 items-center justify-center" aria-label="Open menu">
+          <span class="flex flex-col gap-1.5">
+            <span class="block h-0.5 w-5 bg-[var(--ink)]"></span>
+            <span class="block h-0.5 w-5 bg-[var(--ink)]"></span>
+            <span class="block h-0.5 w-4 bg-[var(--ink)]"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden lg:hidden border-t border-[var(--line)] bg-white">
+      <div class="container-site py-3 flex flex-col gap-1">
+        <a href="{% url 'home' %}" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">Home</a>
+        <a href="{% url 'shop' %}" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">Products</a>
+        <a href="{% url 'shop' %}?cat=kraft-pouches" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">Kraft Pouches</a>
+        <a href="{% url 'shop' %}?cat=bakery" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">Bakery</a>
+        <a href="{% url 'cart' %}" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">Cart{% if cart_count %} ({{ cart_count }}){% endif %}</a>
+        <a href="{% url 'checkout' %}" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">Checkout</a>
+        <a href="{% url 'quote' %}" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">Get Quote</a>
+        <a href="{% url 'about' %}" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">About</a>
+        <a href="{% url 'contact' %}" class="rounded-lg px-3 py-2.5 font-medium hover:bg-[var(--cream)]">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden lg:block site-top-strip text-[13px]">
+    <div class="container-site flex flex-wrap items-center justify-between gap-2 py-2">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+        <a href="{{ site.phone_href }}" class="hover:opacity-90">{{ site.phone }}</a>
+        <a href="mailto:{{ site.email }}" class="hover:opacity-90">{{ site.email }}</a>
+        <a href="{{ site.whatsapp_href }}" target="_blank" rel="noopener noreferrer" class="hover:opacity-90">WhatsApp</a>
+        <span class="opacity-95">★ {{ site.customers }} Happy Customers Across Pakistan</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="{% url 'shop' %}" class="hover:opacity-90">Track Order</a>
+        <a href="{% url 'contact' %}" class="hover:opacity-90">Contact</a>
+        <a href="{{ site.whatsapp_href }}" class="hover:opacity-90">Live Chat</a>
+      </div>
+    </div>
+  </div>
+</header>
+<script>
+  document.getElementById('menu-toggle')?.addEventListener('click', function () {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  });
+</script>

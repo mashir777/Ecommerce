@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}About PackHive{% endblock %}
+
+{% block content %}
+<div class="container-site py-12">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold">About PackHive</h1>
+    <p class="mt-4 text-[var(--muted)] leading-relaxed text-lg">
+      PackHive is a Pakistan-focused packaging partner for restaurants, bakeries, cafes,
+      startups and retail brands. We help you look premium on the shelf and stay practical
+      in the kitchen — with kraft pouches, bakery boxes, eco containers, cups and more.
+    </p>
+    <div class="mt-8 grid sm:grid-cols-2 gap-4">
+      <div class="rounded-2xl bg-white border border-[var(--line)] p-6">
+        <h2 class="font-bold text-lg text-[var(--terra)]">What we offer</h2>
+        <ul class="mt-3 space-y-2 text-[var(--muted)] text-sm">
+          <li>• Custom &amp; plain packaging</li>
+          <li>• Low MOQ for growing brands</li>
+          <li>• Bulk pricing for restaurants</li>
+          <li>• Delivery to major cities</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl bg-white border border-[var(--line)] p-6">
+        <h2 class="font-bold text-lg text-[var(--terra)]">Why PackHive</h2>
+        <ul class="mt-3 space-y-2 text-[var(--muted)] text-sm">
+          <li>• {{ site.customers }} happy customers</li>
+          <li>• Brand-matching design support</li>
+          <li>• Fast WhatsApp ordering</li>
+          <li>• Food-grade quality focus</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="{% url 'shop' %}" class="btn-primary">Browse products</a>
+      <a href="{% url 'quote' %}" class="btn-outline">Get a quote</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

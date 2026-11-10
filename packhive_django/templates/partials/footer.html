@@ -1,0 +1,60 @@
+<footer class="mt-auto site-footer text-white">
+  <div class="container-site grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
+    <div class="lg:col-span-1">
+      <div class="flex items-center gap-2.5 mb-4">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/10">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.7">
+            <path d="M3 8.5 12 4l9 4.5v9L12 22 3 17.5v-9Z" />
+            <path d="M12 12v10M3 8.5l9 3.5 9-3.5" />
+          </svg>
+        </span>
+        <span class="font-[family-name:var(--font-display)] text-xl font-bold">PackHive</span>
+      </div>
+      <p class="text-white/70 text-sm leading-relaxed">
+        Pakistan's trusted online packaging store — offering 500+ premium packaging
+        solutions for restaurants, bakeries, startups &amp; retail businesses. Fast shipping
+        across major cities with bulk discounts.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="font-semibold mb-4 tracking-wide">Useful Links</h3>
+      <ul class="space-y-2.5 text-sm text-white/70">
+        <li><a href="{% url 'about' %}" class="hover:text-white">About Us</a></li>
+        <li><a href="{% url 'quote' %}" class="hover:text-white">Get Free Quote</a></li>
+        <li><a href="{% url 'shop' %}" class="hover:text-white">Shop All</a></li>
+        <li><a href="{% url 'contact' %}" class="hover:text-white">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="font-semibold mb-4 tracking-wide">Quick Links</h3>
+      <ul class="space-y-2.5 text-sm text-white/70">
+        <li><a href="{% url 'shop' %}?cat=kraft-pouches" class="hover:text-white">Kraft Pouches</a></li>
+        <li><a href="{% url 'shop' %}?cat=bakery" class="hover:text-white">Bakery Boxes</a></li>
+        <li><a href="{% url 'shop' %}?cat=eco" class="hover:text-white">Eco Packaging</a></li>
+        <li><a href="{% url 'shop' %}?cat=cups" class="hover:text-white">Custom Cups</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="font-semibold mb-4 tracking-wide">Contact</h3>
+      <ul class="space-y-2.5 text-sm text-white/70">
+        <li><a href="{{ site.phone_href }}" class="hover:text-white">{{ site.phone }}</a></li>
+        <li><a href="mailto:{{ site.email }}" class="hover:text-white">{{ site.email }}</a></li>
+        <li>{{ site.address }}</li>
+        <li>{{ site.hours }}</li>
+        <li>
+          <a href="{{ site.whatsapp_href }}" target="_blank" rel="noopener noreferrer" class="hover:text-white">Chat on WhatsApp</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-site py-5 text-sm text-white/55 flex flex-wrap justify-between gap-2">
+      <span>© 2026 PackHive. All rights reserved.</span>
+      <span>Made for packaging businesses across Pakistan</span>
+    </div>
+  </div>
+</footer>

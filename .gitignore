@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+staticfiles/
+
+# Uploaded media is generated locally
+packhive_django/media/
+
+# Node / Next
+node_modules/
+.next/
+out/
+
+# Local editor and secrets
+.cursor/
+.DS_Store
+*.log
+.env
+.env.*

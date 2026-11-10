@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Contact PackHive{% endblock %}
+
+{% block content %}
+<div class="container-site py-12">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-3xl font-bold">Contact PackHive</h1>
+    <p class="mt-3 text-[var(--muted)]">
+      Questions about packaging, bulk pricing or custom print? Reach out — we usually reply within business hours.
+    </p>
+
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <a href="{{ site.phone_href }}" class="rounded-2xl bg-white border border-[var(--line)] p-5 hover:border-[var(--terra)]">
+        <p class="text-sm text-[var(--muted)]">Phone</p>
+        <p class="mt-1 font-semibold">{{ site.phone }}</p>
+      </a>
+      <a href="mailto:{{ site.email }}" class="rounded-2xl bg-white border border-[var(--line)] p-5 hover:border-[var(--terra)]">
+        <p class="text-sm text-[var(--muted)]">Email</p>
+        <p class="mt-1 font-semibold break-all">{{ site.email }}</p>
+      </a>
+      <a href="{{ site.whatsapp_href }}" target="_blank" rel="noopener noreferrer" class="rounded-2xl bg-white border border-[var(--line)] p-5 hover:border-[var(--terra)]">
+        <p class="text-sm text-[var(--muted)]">WhatsApp</p>
+        <p class="mt-1 font-semibold">Chat now</p>
+      </a>
+      <div class="rounded-2xl bg-white border border-[var(--line)] p-5">
+        <p class="text-sm text-[var(--muted)]">Visit / Hours</p>
+        <p class="mt-1 font-semibold text-sm leading-snug">{{ site.address }}</p>
+        <p class="mt-2 text-sm text-[var(--muted)]">{{ site.hours }}</p>
+      </div>
+    </div>
+
+    <form method="post" class="mt-10 rounded-[1.5rem] bg-white border border-[var(--line)] p-6 sm:p-8 space-y-4">
+      {% csrf_token %}
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="text-sm font-medium">Name</span>
+          {{ form.name }}
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">Phone</span>
+          {{ form.phone }}
+        </label>
+      </div>
+      <label class="block">
+        <span class="text-sm font-medium">Email</span>
+        {{ form.email }}
+      </label>
+      <label class="block">
+        <span class="text-sm font-medium">Message</span>
+        {{ form.message }}
+      </label>
+      <button type="submit" class="btn-primary">Send Message</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

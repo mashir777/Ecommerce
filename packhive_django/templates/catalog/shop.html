@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static shop_extras %}
+
+{% block title %}{% if active %}{{ active.name }}{% else %}All Packaging Products{% endif %} | PackHive{% endblock %}
+
+{% block content %}
+<div class="container-site py-10">
+  <div class="mb-8">
+    <p class="text-sm text-[var(--muted)] mb-2">
+      <a href="{% url 'home' %}" class="hover:text-[var(--terra)]">Home</a> / Shop
+      {% if active %} / {{ active.name }}{% endif %}
+    </p>
+    <h1 class="text-3xl font-bold">{% if active %}{{ active.name }}{% else %}All Packaging Products{% endif %}</h1>
+    <p class="mt-2 text-[var(--muted)] max-w-2xl">
+      Browse PackHive packaging for restaurants, bakeries, cafes and retail brands across Pakistan.
+      Showing {{ products|length }} product{{ products|length|pluralize }}.
+    </p>
+  </div>
+
+  <div class="flex flex-wrap gap-2 mb-8">
+    <a href="{% url 'shop' %}" class="rounded-full px-4 py-2 text-sm font-medium {% if not cat %}bg-[var(--terra)] text-white{% else %}bg-white border border-[var(--line)] text-[var(--muted)]{% endif %}">All</a>
+    {% for c in categories %}
+      <a href="{% url 'shop' %}?cat={{ c.slug }}" class="rounded-full px-4 py-2 text-sm font-medium {% if cat == c.slug %}bg-[var(--terra)] text-white{% else %}bg-white border border-[var(--line)] text-[var(--muted)] hover:border-[var(--terra)]{% endif %}">{{ c.name }}</a>
+    {% endfor %}
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    {% for product in products %}
+      <article class="product-card group">
+        <a href="{% url 'product_detail' product.slug %}">
+          <div class="relative aspect-square bg-[var(--cream)] overflow-hidden">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
+          <div class="p-4">
+            <h2 class="font-semibold text-[15px] line-clamp-2 min-h-[2.6em]">{{ product.name }}</h2>
+            <p class="mt-2 text-[var(--terra)] font-bold">{{ product.price_display }}</p>
+          </div>
+        </a>
+            <div class="px-4 pb-4 flex flex-col gap-2">
+          <form method="post" action="{% url 'cart_add' product.slug %}">
+            {% csrf_token %}
+            <input type="hidden" name="quantity" value="1" />
+            <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+            <button type="submit" class="btn-primary w-full text-sm py-2.5">Add to Cart</button>
+          </form>
+          <a href="{% url 'product_detail' product.slug %}" class="btn-outline w-full text-sm py-2.5">View details</a>
+        </div>
+      </article>
+    {% empty %}
+      <div class="text-center py-20 text-[var(--muted)] col-span-full">
+        <p>No products found in this category.</p>
+        <a href="{% url 'shop' %}" class="btn-primary mt-5 inline-flex">View all products</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

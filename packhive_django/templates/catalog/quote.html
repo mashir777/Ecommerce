@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Request a Quote | PackHive{% endblock %}
+
+{% block content %}
+<div class="container-site py-12">
+  <div class="max-w-3xl mx-auto">
+    <p class="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--terra)] mb-3">Free quote</p>
+    <h1 class="text-3xl font-bold">Request a packaging quote</h1>
+    <p class="mt-3 text-[var(--muted)]">
+      Share product type, quantity and any artwork — PackHive will send pricing and lead time.
+      Prefer WhatsApp?
+      <a href="{{ site.whatsapp_href }}" class="text-[var(--terra)] font-semibold underline">Message us instantly</a>.
+    </p>
+
+    <form method="post" class="mt-10 rounded-[1.5rem] bg-white border border-[var(--line)] p-6 sm:p-8 space-y-4">
+      {% csrf_token %}
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="text-sm font-medium">{{ form.name.label }}</span>
+          {{ form.name }}
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">{{ form.phone.label }}</span>
+          {{ form.phone }}
+        </label>
+      </div>
+      <label class="block">
+        <span class="text-sm font-medium">Email</span>
+        {{ form.email }}
+      </label>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="text-sm font-medium">{{ form.product_type.label }}</span>
+          {{ form.product_type }}
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">{{ form.quantity.label }}</span>
+          {{ form.quantity }}
+        </label>
+      </div>
+      <label class="block">
+        <span class="text-sm font-medium">{{ form.details.label }}</span>
+        {{ form.details }}
+      </label>
+      <button type="submit" class="btn-primary">Submit Quote Request</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

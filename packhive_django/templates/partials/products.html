@@ -1,0 +1,43 @@
+{% load static shop_extras %}
+<section class="container-site py-10 pb-16">
+  <h2 class="section-title">{{ title|default:"Explore Our Best Packaging Products" }}</h2>
+  <img src="{% static 'heading-ornament.png' %}" alt="" width="140" height="14" class="section-ornament" />
+
+  {% if show_tabs %}
+    <div class="mt-8 flex flex-wrap justify-center gap-2">
+      {% for t in product_tabs %}
+        <a href="{% url 'home' %}?tab={{ t.id }}#products"
+           class="rounded-full px-4 py-2 text-sm font-medium transition-colors {% if active_tab == t.id %}bg-[var(--terra)] text-white{% else %}bg-white border border-[var(--line)] text-[var(--muted)] hover:border-[var(--terra)] hover:text-[var(--terra)]{% endif %}">
+          {{ t.label }}
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div id="products" class="mt-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    {% for product in products %}
+      <article class="product-card group">
+        <a href="{% url 'product_detail' product.slug %}" class="block">
+          <div class="relative aspect-square bg-[var(--cream)] overflow-hidden">
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-[15px] leading-snug line-clamp-2 min-h-[2.6em]">{{ product.name }}</h3>
+            <p class="mt-2 text-[var(--terra)] font-bold">{{ product.price_display }}</p>
+          </div>
+        </a>
+            <div class="px-4 pb-4 flex flex-col gap-2">
+          <form method="post" action="{% url 'cart_add' product.slug %}">
+            {% csrf_token %}
+            <input type="hidden" name="quantity" value="1" />
+            <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+            <button type="submit" class="btn-primary w-full text-sm py-2.5">Add to Cart</button>
+          </form>
+          <a href="{% url 'product_detail' product.slug %}" class="btn-outline w-full text-sm py-2.5">View details</a>
+        </div>
+      </article>
+    {% empty %}
+      <p class="text-center text-[var(--muted)] mt-10 col-span-full">No products in this category yet.</p>
+    {% endfor %}
+  </div>
+</section>

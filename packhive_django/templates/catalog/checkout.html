@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load static shop_extras %}
+
+{% block title %}Checkout | PackHive{% endblock %}
+
+{% block content %}
+<div class="container-site py-10">
+  <p class="text-sm text-[var(--muted)] mb-2">
+    <a href="{% url 'home' %}" class="hover:text-[var(--terra)]">Home</a> /
+    <a href="{% url 'cart' %}" class="hover:text-[var(--terra)]">Cart</a> / Checkout
+  </p>
+  <h1 class="text-3xl font-bold">Checkout</h1>
+  <p class="mt-2 text-[var(--muted)]">Enter delivery details and place your order. We’ll confirm on WhatsApp.</p>
+
+  <form method="post" class="mt-8 grid gap-8 lg:grid-cols-[1.45fr_0.95fr]">
+    {% csrf_token %}
+    <div class="rounded-[1.5rem] bg-white border border-[var(--line)] p-6 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold">Delivery details</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="text-sm font-medium">{{ form.full_name.label }}</span>
+          {{ form.full_name }}
+          {% if form.full_name.errors %}<p class="mt-1 text-sm text-red-600">{{ form.full_name.errors.0 }}</p>{% endif %}
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">{{ form.phone.label }}</span>
+          {{ form.phone }}
+          {% if form.phone.errors %}<p class="mt-1 text-sm text-red-600">{{ form.phone.errors.0 }}</p>{% endif %}
+        </label>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <label class="block">
+          <span class="text-sm font-medium">{{ form.email.label }}</span>
+          {{ form.email }}
+        </label>
+        <label class="block">
+          <span class="text-sm font-medium">{{ form.city.label }}</span>
+          {{ form.city }}
+          {% if form.city.errors %}<p class="mt-1 text-sm text-red-600">{{ form.city.errors.0 }}</p>{% endif %}
+        </label>
+      </div>
+      <label class="block">
+        <span class="text-sm font-medium">{{ form.address.label }}</span>
+        {{ form.address }}
+        {% if form.address.errors %}<p class="mt-1 text-sm text-red-600">{{ form.address.errors.0 }}</p>{% endif %}
+      </label>
+
+      <div>
+        <span class="text-sm font-medium block mb-3">{{ form.payment_method.label }}</span>
+        <div class="space-y-3">
+          {% for radio in form.payment_method %}
+            <label class="flex items-start gap-3 rounded-2xl border border-[var(--line)] bg-[var(--cream-soft)] px-4 py-3 cursor-pointer hover:border-[var(--terra)]">
+              {{ radio.tag }}
+              <span>
+                <span class="font-semibold block">{{ radio.choice_label }}</span>
+                {% if radio.choice_label == "Cash on Delivery" %}
+                  <span class="text-sm text-[var(--muted)]">Pay when your order arrives.</span>
+                {% else %}
+                  <span class="text-sm text-[var(--muted)]">We will share bank details after confirmation.</span>
+                {% endif %}
+              </span>
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+
+      <label class="block">
+        <span class="text-sm font-medium">{{ form.notes.label }}</span>
+        {{ form.notes }}
+      </label>
+    </div>
+
+    <aside class="rounded-[1.5rem] bg-white border border-[var(--line)] p-6 h-fit sticky top-28">
+      <h2 class="text-xl font-bold">Your order</h2>
+      <ul class="mt-5 space-y-4">
+        {% for item in cart_items %}
+          <li class="flex gap-3">
+            <div class="relative h-14 w-14 shrink-0 rounded-xl overflow-hidden bg-[var(--cream)]">
+              <img src="{{ item.product.image_url }}" alt="" class="absolute inset-0 h-full w-full object-cover" />
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-sm font-medium line-clamp-2">{{ item.product.name }}</p>
+              <p class="text-xs text-[var(--muted)] mt-0.5">Qty {{ item.quantity }}</p>
+            </div>
+            <p class="text-sm font-semibold shrink-0">{{ item.total_display }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+      <dl class="mt-5 space-y-3 text-sm border-t border-[var(--line)] pt-4">
+        <div class="flex justify-between gap-3">
+          <dt class="text-[var(--muted)]">Subtotal</dt>
+          <dd class="font-semibold">{{ subtotal_display }}</dd>
+        </div>
+        <div class="flex justify-between gap-3">
+          <dt class="text-[var(--muted)]">Shipping</dt>
+          <dd class="font-semibold">{{ shipping_display }}</dd>
+        </div>
+        <div class="flex justify-between gap-3 text-base">
+          <dt class="font-bold">Total</dt>
+          <dd class="font-bold text-[var(--terra)]">{{ total_display }}</dd>
+        </div>
+      </dl>
+      <button type="submit" class="btn-primary w-full mt-6">Place Order</button>
+      <a href="{% url 'cart' %}" class="btn-outline w-full mt-3">Back to Cart</a>
+      <p class="mt-4 text-xs text-[var(--muted)] leading-relaxed">
+        By placing order you agree we may contact you on WhatsApp/phone to confirm delivery.
+      </p>
+    </aside>
+  </form>
+</div>
+{% endblock %}

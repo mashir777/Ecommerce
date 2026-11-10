@@ -1,0 +1,35 @@
+"use client";
+
+import { site } from "@/lib/data";
+
+export default function FloatingActions() {
+  return (
+    <>
+      <a
+        href={site.whatsappHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 left-5 z-50 h-14 w-14 rounded-full bg-[var(--whatsapp)] text-white shadow-lg flex items-center justify-center animate-pulse-soft"
+        aria-label="WhatsApp"
+      >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.5 2 2 6.3 2 11.7c0 2 .6 3.9 1.6 5.5L2 22l5-1.3c1.5.8 3.2 1.3 5 1.3 5.5 0 10-4.3 10-9.7S17.5 2 12 2zm0 17.6c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3C4.2 14.7 3.8 13.2 3.8 11.7 3.8 7.4 7.5 4 12 4s8.2 3.4 8.2 7.7-3.7 7.9-8.2 7.9zm4.5-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.7.9-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.2.2-.3.2-.5 0-.2 0-.4-.1-.5-.1-.1-.5-1.2-.7-1.6-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.1.7 2.9.6.4-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.3-.2-.5-.3z" />
+        </svg>
+      </a>
+
+      <a
+        href="/shop"
+        className="fixed bottom-6 right-5 z-50 h-14 w-14 rounded-full bg-white text-[var(--ink)] shadow-lg border border-[var(--line)] flex items-center justify-center"
+        aria-label="Cart"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <path d="M6 7h12l-1 12H7L6 7Z" />
+          <path d="M9 7a3 3 0 0 1 6 0" />
+        </svg>
+        <span className="absolute -top-1 -right-1 h-5 min-w-5 px-1 rounded-full bg-[var(--ink)] text-white text-[11px] flex items-center justify-center">
+          0
+        </span>
+      </a>
+    </>
+  );
+}
